@@ -160,5 +160,45 @@ namespace gsbRapports
             this.adpFamille.Fill(this.monDataSet.famille);
 
         }
+
+        private void btnAjouter_Click(object sender, EventArgs e)
+        {
+            // 1. Vérification : On doit avoir une famille sélectionnée
+            if (cbxFamilles.SelectedValue == null)
+            {
+                MessageBox.Show("Veuillez d'abord sélectionner une famille.");
+                return;
+            }
+
+            try
+            {
+                // 2. Création d'une nouvelle ligne vierge dans le DataSet
+                var nouvelleLigne = monDataSet.medicament.NewmedicamentRow();
+
+                // 3. Remplissage des données avec les TextBox
+                // Génération d'un ID unique (Ex: M + les 5 derniers chiffres du temps actuel)
+                nouvelleLigne.id = "M" + DateTime.Now.Ticks.ToString().Substring(13);
+                nouvelleLigne.nomCommercial = txtNom.Text;
+                nouvelleLigne.idFamille = cbxFamilles.SelectedValue.ToString();
+                nouvelleLigne.composition = txtComposition.Text;
+                nouvelleLigne.effets = txtEffets.Text;
+                nouvelleLigne.contreIndications = ""; // On peut laisser vide pour l'instant
+
+                // 4. Ajout de la ligne dans la table locale (en mémoire)
+                monDataSet.medicament.AddmedicamentRow(nouvelleLigne);
+
+                // 5. Synchronisation avec la base de données SQL Server
+                adpMedicament.Update(monDataSet.medicament);
+
+                MessageBox.Show("Le médicament " + txtNom.Text + " a été ajouté avec succès !");
+
+                // 6. Optionnel : On rafraîchit la grille pour voir le nouveau médicament
+                dgvMedicaments.Refresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur lors de l'ajout : " + ex.Message);
+            }
+        }
     }
 }
