@@ -200,5 +200,55 @@ namespace gsbRapports
                 MessageBox.Show("Erreur lors de l'ajout : " + ex.Message);
             }
         }
+
+        private void btnSupprimer_Click(object sender, EventArgs e)
+        {
+            // 1. Vérifier qu'une ligne est bien sélectionnée dans la grille
+            if (dgvMedicaments.CurrentRow != null)
+            {
+                // 2. Récupérer l'objet ligne correspondant
+                DataRowView drv = (DataRowView)dgvMedicaments.CurrentRow.DataBoundItem;
+                var ligne = (gsbrapports2016DataSet.medicamentRow)drv.Row;
+
+                // 3. Demander une confirmation (Bonne pratique de développement)
+                DialogResult reponse = MessageBox.Show(
+                    "Voulez-vous vraiment supprimer le médicament " + ligne.nomCommercial + " ?",
+                    "Confirmation de suppression",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (reponse == DialogResult.Yes)
+                {
+                    try
+                    {
+                        // 4. Supprimer la ligne du DataSet (en mémoire)
+                        ligne.Delete();
+
+                        // 5. Envoyer la commande DELETE à SQL Server
+                        adpMedicament.Update(monDataSet.medicament);
+
+                        MessageBox.Show("Médicament supprimé avec succès.");
+
+                        // 6. Vider les champs de texte car le médicament n'existe plus
+                        txtNom.Clear();
+                        txtComposition.Clear();
+                        txtEffets.Clear();
+                    }
+                    catch (Exception ex)
+                    {
+                        // Si le médicament est lié à des rapports, SQL Server bloquera la suppression (Clé étrangère)
+                        MessageBox.Show("Impossible de supprimer ce médicament car il est utilisé dans des rapports de visite.\n\nErreur : " + ex.Message,
+                                        "Erreur d'intégrité", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        // Optionnel : annuler la suppression en mémoire pour que la ligne réapparaisse
+                        monDataSet.medicament.RejectChanges();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner un médicament dans la liste avant de cliquer sur supprimer.");
+            }
+        }
     }
 }

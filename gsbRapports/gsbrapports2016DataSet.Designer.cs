@@ -1127,6 +1127,8 @@ namespace gsbRapports {
             
             private global::System.Data.DataColumn columncontreIndications;
             
+            private global::System.Data.DataColumn columntotalOffert;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public medicamentDataTable() {
@@ -1210,6 +1212,14 @@ namespace gsbRapports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn totalOffertColumn {
+                get {
+                    return this.columntotalOffert;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1245,7 +1255,7 @@ namespace gsbRapports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public medicamentRow AddmedicamentRow(string id, string nomCommercial, familleRow parentfamilleRowBymedicament_fk, string composition, string effets, string contreIndications) {
+            public medicamentRow AddmedicamentRow(string id, string nomCommercial, familleRow parentfamilleRowBymedicament_fk, string composition, string effets, string contreIndications, int totalOffert) {
                 medicamentRow rowmedicamentRow = ((medicamentRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
@@ -1253,7 +1263,8 @@ namespace gsbRapports {
                         null,
                         composition,
                         effets,
-                        contreIndications};
+                        contreIndications,
+                        totalOffert};
                 if ((parentfamilleRowBymedicament_fk != null)) {
                     columnValuesArray[2] = parentfamilleRowBymedicament_fk[0];
                 }
@@ -1292,6 +1303,7 @@ namespace gsbRapports {
                 this.columncomposition = base.Columns["composition"];
                 this.columneffets = base.Columns["effets"];
                 this.columncontreIndications = base.Columns["contreIndications"];
+                this.columntotalOffert = base.Columns["totalOffert"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1309,6 +1321,8 @@ namespace gsbRapports {
                 base.Columns.Add(this.columneffets);
                 this.columncontreIndications = new global::System.Data.DataColumn("contreIndications", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncontreIndications);
+                this.columntotalOffert = new global::System.Data.DataColumn("totalOffert", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntotalOffert);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
                 this.columnid.AllowDBNull = false;
@@ -2730,6 +2744,22 @@ namespace gsbRapports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int totalOffert {
+                get {
+                    try {
+                        return ((int)(this[this.tablemedicament.totalOffertColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("La valeur pour la colonne \'totalOffert\' dans la table \'medicament\' est DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablemedicament.totalOffertColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public familleRow familleRow {
                 get {
                     return ((familleRow)(this.GetParentRow(this.Table.ParentRelations["medicament_fk"])));
@@ -2737,6 +2767,18 @@ namespace gsbRapports {
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["medicament_fk"]);
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IstotalOffertNull() {
+                return this.IsNull(this.tablemedicament.totalOffertColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SettotalOffertNull() {
+                this[this.tablemedicament.totalOffertColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4395,10 +4437,11 @@ SELECT id, nom, prenom, adresse, tel, specialiteComplementaire, departement FROM
             tableMapping.ColumnMappings.Add("composition", "composition");
             tableMapping.ColumnMappings.Add("effets", "effets");
             tableMapping.ColumnMappings.Add("contreIndications", "contreIndications");
+            tableMapping.ColumnMappings.Add("totalOffert", "totalOffert");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[medicament] WHERE (([id] = @Original_id) AND ([nomCommercial] = @Original_nomCommercial) AND ([idFamille] = @Original_idFamille) AND ([composition] = @Original_composition) AND ([effets] = @Original_effets) AND ([contreIndications] = @Original_contreIndications))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [medicament] WHERE (([id] = @Original_id) AND ([nomCommercial] = @Original_nomCommercial) AND ([idFamille] = @Original_idFamille) AND ([composition] = @Original_composition) AND ([effets] = @Original_effets) AND ([contreIndications] = @Original_contreIndications))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_id", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_nomCommercial", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "nomCommercial", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -4408,8 +4451,8 @@ SELECT id, nom, prenom, adresse, tel, specialiteComplementaire, departement FROM
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_contreIndications", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "contreIndications", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[medicament] ([id], [nomCommercial], [idFamille], [composition], [effets], [contreIndications]) VALUES (@id, @nomCommercial, @idFamille, @composition, @effets, @contreIndications);
-SELECT id, nomCommercial, idFamille, composition, effets, contreIndications FROM medicament WHERE (id = @id)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [medicament] ([id], [nomCommercial], [idFamille], [composition], [effets], [contreIndications]) VALUES (@id, @nomCommercial, @idFamille, @composition, @effets, @contreIndications);
+SELECT id, nomCommercial, idFamille, composition, effets, contreIndications, ISNULL((SELECT SUM(quantite) AS Expr1 FROM offrir WHERE (idMedicament = medicament.id)), 0) AS totalOffert FROM medicament WHERE (id = @id)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@nomCommercial", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "nomCommercial", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -4419,8 +4462,8 @@ SELECT id, nomCommercial, idFamille, composition, effets, contreIndications FROM
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@contreIndications", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "contreIndications", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[medicament] SET [id] = @id, [nomCommercial] = @nomCommercial, [idFamille] = @idFamille, [composition] = @composition, [effets] = @effets, [contreIndications] = @contreIndications WHERE (([id] = @Original_id) AND ([nomCommercial] = @Original_nomCommercial) AND ([idFamille] = @Original_idFamille) AND ([composition] = @Original_composition) AND ([effets] = @Original_effets) AND ([contreIndications] = @Original_contreIndications));
-SELECT id, nomCommercial, idFamille, composition, effets, contreIndications FROM medicament WHERE (id = @id)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [medicament] SET [id] = @id, [nomCommercial] = @nomCommercial, [idFamille] = @idFamille, [composition] = @composition, [effets] = @effets, [contreIndications] = @contreIndications WHERE (([id] = @Original_id) AND ([nomCommercial] = @Original_nomCommercial) AND ([idFamille] = @Original_idFamille) AND ([composition] = @Original_composition) AND ([effets] = @Original_effets) AND ([contreIndications] = @Original_contreIndications));
+SELECT id, nomCommercial, idFamille, composition, effets, contreIndications, ISNULL((SELECT SUM(quantite) AS Expr1 FROM offrir WHERE (idMedicament = medicament.id)), 0) AS totalOffert FROM medicament WHERE (id = @id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@nomCommercial", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "nomCommercial", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -4449,8 +4492,9 @@ SELECT id, nomCommercial, idFamille, composition, effets, contreIndications FROM
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT id, nomCommercial, idFamille, composition, effets, contreIndications FROM " +
-                "dbo.medicament";
+            this._commandCollection[0].CommandText = "SELECT id, nomCommercial, idFamille, composition, effets, contreIndications,\r\n   " +
+                "    ISNULL((SELECT SUM(quantite) FROM offrir WHERE idMedicament = medicament.id)" +
+                ", 0) AS totalOffert\r\nFROM medicament";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         

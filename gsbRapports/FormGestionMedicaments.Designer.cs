@@ -50,6 +50,7 @@
             this.txtEffets = new System.Windows.Forms.TextBox();
             this.btnPlusFamille = new System.Windows.Forms.Button();
             this.btnAjouter = new System.Windows.Forms.Button();
+            this.btnSupprimer = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMedicaments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.medicamentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gsbrapports2016DataSet)).BeginInit();
@@ -204,7 +205,7 @@
             // 
             // btnModifier
             // 
-            this.btnModifier.Location = new System.Drawing.Point(199, 393);
+            this.btnModifier.Location = new System.Drawing.Point(131, 384);
             this.btnModifier.Name = "btnModifier";
             this.btnModifier.Size = new System.Drawing.Size(98, 26);
             this.btnModifier.TabIndex = 11;
@@ -232,7 +233,7 @@
             // 
             // btnAjouter
             // 
-            this.btnAjouter.Location = new System.Drawing.Point(462, 393);
+            this.btnAjouter.Location = new System.Drawing.Point(304, 378);
             this.btnAjouter.Name = "btnAjouter";
             this.btnAjouter.Size = new System.Drawing.Size(167, 32);
             this.btnAjouter.TabIndex = 14;
@@ -240,11 +241,22 @@
             this.btnAjouter.UseVisualStyleBackColor = true;
             this.btnAjouter.Click += new System.EventHandler(this.btnAjouter_Click);
             // 
+            // btnSupprimer
+            // 
+            this.btnSupprimer.Location = new System.Drawing.Point(559, 384);
+            this.btnSupprimer.Name = "btnSupprimer";
+            this.btnSupprimer.Size = new System.Drawing.Size(104, 27);
+            this.btnSupprimer.TabIndex = 15;
+            this.btnSupprimer.Text = "Suprimer";
+            this.btnSupprimer.UseVisualStyleBackColor = true;
+            this.btnSupprimer.Click += new System.EventHandler(this.btnSupprimer_Click);
+            // 
             // FormGestionMedicaments
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnSupprimer);
             this.Controls.Add(this.btnAjouter);
             this.Controls.Add(this.btnPlusFamille);
             this.Controls.Add(this.txtEffets);
@@ -291,5 +303,6 @@
         private System.Windows.Forms.TextBox txtEffets;
         private System.Windows.Forms.Button btnPlusFamille;
         private System.Windows.Forms.Button btnAjouter;
+        private System.Windows.Forms.Button btnSupprimer;
     }
 }
