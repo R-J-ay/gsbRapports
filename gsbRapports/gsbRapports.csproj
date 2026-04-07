@@ -127,7 +127,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <None Include="bin\Debug\gsbRapports.vshost.exe.manifest" />
     <None Include="gsbrapports2016DataSet.xsc">
       <DependentUpon>gsbrapports2016DataSet.xsd</DependentUpon>
     </None>
